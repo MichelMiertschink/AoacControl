@@ -1,4 +1,4 @@
-﻿@model AoacControl.Models.ViewModels.ComunidadeFormViewModel
+﻿@model AoacControl.Models.ViewModels.InstrumentoFormViewModel
 
 @{
     ViewData["Title"] = "Editar Comunidade";
@@ -10,19 +10,41 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Instrumento.CreatedAt" value="@DateTime.Now" />
+            <input type="hidden" asp-for="Instrumento.UpdatedAt" value="@DateTime.Now" />
             <div class="form-group">
-                <label asp-for="Comunidade.Nome" class="control-label"></label>
-                <input asp-for="Comunidade.Nome" class="form-control" />
-                <span asp-validation-for="Comunidade.Nome" class="text-danger"></span>
+                <label asp-for="Instrumento.Patrimonio" class="control-label"></label>
+                <input asp-for="Instrumento.Patrimonio" type="text" class="form-control" />
+                <span asp-validation-for="Instrumento.Patrimonio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Comunidade.ParoquiaId" class="control-label"></label>
-                <select asp-for="Comunidade.ParoquiaId" asp-items="@(new SelectList(Model.Paroquias, "Id", "Nome"))" class="form-control"></select>
-                <span asp-validation-for="Comunidade.ParoquiaId" class="text-danger"></span>
+                <label asp-for="Instrumento.Descricao" class="control-label"></label>
+                <input asp-for="Instrumento.Descricao" class="form-control" />
+                <span asp-validation-for="Instrumento.Descricao" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="Comunidade.Id" />
-            <input type="hidden" asp-for="Comunidade.CreatedAt" />
-            <input type="hidden" asp-for="Comunidade.UpdatedAt" value="@DateTime.Now" />
+            <div class="form-group">
+                <label asp-for="Instrumento.TipoInstrumento" class="control-label">Tipo Instrumento</label>
+                <select asp-for="Instrumento.TipoInstrumento" asp-items="Html.GetEnumSelectList<AoacControl.Models.Enums.TipoInstrumento>()" class="form-control">
+                    <option disabled selected>Selecionar...</option>
+                </select>
+                <span asp-validation-for="Instrumento.TipoInstrumento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Instrumento.FonteDoacao" class="control-label">Fonte da Doação</label>
+                <select asp-for="Instrumento.FonteDoacao" asp-items="Html.GetEnumSelectList<AoacControl.Models.Enums.FonteDoacao>()" class="form-control">
+                    <option disabled selected>Selecionar...</option>
+                </select>
+                <span asp-validation-for="Instrumento.FonteDoacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Instrumento.ValorInstrumento" class="control-label"></label>
+                <input asp-for="Instrumento.ValorInstrumento" type="text" class="form-control" />
+                <span asp-validation-for="Instrumento.ValorInstrumento" class="text-danger"></span>
+            </div><div class="form-group">
+                <label asp-for="Instrumento.Observacoes" class="control-label"></label>
+                <input asp-for="Instrumento.Observacoes" type="text" class="form-control" />
+                <span asp-validation-for="Instrumento.Observacoes" class="text-danger"></span>
+            </div>
             <br />
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-primary btn-sm" />

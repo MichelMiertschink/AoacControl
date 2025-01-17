@@ -13,7 +13,7 @@
             <input type="hidden" asp-for="Instrumento.UpdatedAt" value="@DateTime.Now" />
             <div class="form-group">
                 <label asp-for="Instrumento.Patrimonio" class="control-label"></label>
-                <input asp-for="Instrumento.Patrimonio" class="form-control" />
+                <input asp-for="Instrumento.Patrimonio" type="text" class="form-control" />
                 <span asp-validation-for="Instrumento.Patrimonio" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -28,7 +28,6 @@
                 </select>
                 <span asp-validation-for="Instrumento.TipoInstrumento" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="Instrumento.FonteDoacao" class="control-label">Fonte da Doação</label>
                 <select asp-for="Instrumento.FonteDoacao" asp-items="Html.GetEnumSelectList<AoacControl.Models.Enums.FonteDoacao>()" class="form-control">
@@ -38,11 +37,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Instrumento.ValorInstrumento" class="control-label"></label>
-                <input asp-for="Instrumento.ValorInstrumento" class="form-control" />
+                <input asp-for="Instrumento.ValorInstrumento"  type="text" class="form-control" />
                 <span asp-validation-for="Instrumento.ValorInstrumento" class="text-danger"></span>
             </div><div class="form-group">
                 <label asp-for="Instrumento.Observacoes" class="control-label"></label>
-                <input asp-for="Instrumento.Observacoes" class="form-control" />
+                <input asp-for="Instrumento.Observacoes" type="text" class="form-control" />
                 <span asp-validation-for="Instrumento.Observacoes" class="text-danger"></span>
             </div>
             <br />

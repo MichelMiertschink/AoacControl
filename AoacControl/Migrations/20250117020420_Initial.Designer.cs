@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AoacControl.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250117011653_Initial")]
+    [Migration("20250117020420_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -116,7 +116,6 @@ namespace AoacControl.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Observacoes")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("Patrimonio")
@@ -133,7 +132,10 @@ namespace AoacControl.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Instrumento");
+                    b.HasIndex("Patrimonio")
+                        .IsUnique();
+
+                    b.ToTable("Instrumentos");
                 });
 
             modelBuilder.Entity("AoacControl.Models.Marca", b =>

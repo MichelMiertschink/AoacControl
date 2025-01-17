@@ -16,7 +16,7 @@ namespace AoacControl.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Instrumento",
+                name: "Instrumentos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -25,10 +25,10 @@ namespace AoacControl.Migrations
                     Descricao = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TipoInstrumento = table.Column<int>(type: "int", nullable: false),
-                    Observacoes = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     FonteDoacao = table.Column<int>(type: "int", nullable: false),
                     ValorInstrumento = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Observacoes = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -150,7 +150,7 @@ namespace AoacControl.Migrations
                     table.ForeignKey(
                         name: "FK_Associados_Instrumentos_InstrumentoID",
                         column: x => x.InstrumentoID,
-                        principalTable: "Instrumento",
+                        principalTable: "Instrumentos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -172,6 +172,12 @@ namespace AoacControl.Migrations
                 column: "ParoquiaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Instrumentos_Patrimonio",
+                table: "Instrumentos",
+                column: "Patrimonio",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Paroquias_UniaoParoquialId",
                 table: "Paroquias",
                 column: "UniaoParoquialId");
@@ -190,7 +196,7 @@ namespace AoacControl.Migrations
                 name: "Comunidades");
 
             migrationBuilder.DropTable(
-                name: "Instrumento");
+                name: "Instrumentos");
 
             migrationBuilder.DropTable(
                 name: "Paroquias");

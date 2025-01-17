@@ -3,6 +3,8 @@ using AoacControl.Models.Enums;
 using AoacControl.Models.ViewModels;
 using AoacControl.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Diagnostics;
 
 namespace AoacControl.Controllers
@@ -28,10 +30,7 @@ namespace AoacControl.Controllers
         // GET: Instrumento/Create
         public async Task<IActionResult> Create()
         {
-            //var associado = await _associadoService.FindAllAsync();
-            var tipoInstrumento = new TipoInstrumento();
-            var viewModel = new InstrumentoFormViewModel { TipoInstrumento = tipoInstrumento /*Associados = associado*/};
-            return View(viewModel);
+            return View();
         }
 
         // POST: Instrumento/Create
@@ -39,15 +38,15 @@ namespace AoacControl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Instrumento instrumento)
         {
-            if (ModelState.IsValid)
+            try
             {
-                //var associado = await _associadoService.FindAllAsync();
-                var viewModel = new InstrumentoFormViewModel { /*Associados = associado*/ };
-                return View(viewModel);
-
+                await _instrumentoService.InsertAsync(instrumento);
+                return RedirectToAction(nameof(Index));
+            } catch (DbUpdateException ex)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Número do patrimonio deve ser único - " + ex.Message });
             }
-            await _instrumentoService.InsertAsync(instrumento);
-            return RedirectToAction(nameof(Index));
+            
         }
 
         // GET: Instrumento/Details
