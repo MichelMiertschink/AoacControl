@@ -1,0 +1,38 @@
+﻿@model AoacControl.Models.ViewModels.ComunidadeFormViewModel
+
+@{
+    ViewData["Title"] = "Editar Comunidade";
+}
+
+<h4>@ViewData["Title"]</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Comunidade.Nome" class="control-label"></label>
+                <input asp-for="Comunidade.Nome" class="form-control" />
+                <span asp-validation-for="Comunidade.Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comunidade.ParoquiaId" class="control-label"></label>
+                <select asp-for="Comunidade.ParoquiaId" asp-items="@(new SelectList(Model.Paroquias, "Id", "Nome"))" class="form-control"></select>
+                <span asp-validation-for="Comunidade.ParoquiaId" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Comunidade.Id" />
+            <input type="hidden" asp-for="Comunidade.CreatedAt" />
+            <input type="hidden" asp-for="Comunidade.UpdatedAt" value="@DateTime.Now" />
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary btn-sm" />
+                <a asp-action="Index" class="btn btn-outline-primary btn-sm">Retornar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

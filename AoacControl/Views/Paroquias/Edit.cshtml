@@ -1,0 +1,38 @@
+﻿@model AoacControl.Models.ViewModels.ParoquiaFormViewModel
+
+@{
+    ViewData["Title"] = "Editar Paróquia";
+}
+
+<h4>@ViewData["Title"]</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Paroquia.Nome" class="control-label"></label>
+                <input asp-for="Paroquia.Nome" class="form-control" />
+                <span asp-validation-for="Paroquia.Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Paroquia.UniaoParoquialId" class="control-label"></label>
+                <select asp-for="Paroquia.UniaoParoquialId" asp-items="@(new SelectList(Model.UnioesParoquiais, "Id", "Nome"))" class="form-control"></select>
+                <span asp-validation-for="Paroquia.UniaoParoquialId" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Paroquia.Id" />
+            <input type="hidden" asp-for="Paroquia.CreatedAt" />
+            <input type="hidden" asp-for="Paroquia.UpdatedAt" value="@DateTime.Now" />
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary btn-sm" />
+                <a asp-action="Index" class="btn btn-outline-primary btn-sm">Retornar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
