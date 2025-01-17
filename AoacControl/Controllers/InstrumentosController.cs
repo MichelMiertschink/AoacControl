@@ -4,6 +4,7 @@ using AoacControl.Models.ViewModels;
 using AoacControl.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Packaging.Signing;
 using System.Data;
 using System.Diagnostics;
 
@@ -37,7 +38,7 @@ namespace AoacControl.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Instrumento instrumento)
-        {
+        {            
             try
             {
                 await _instrumentoService.InsertAsync(instrumento);

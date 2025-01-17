@@ -2,10 +2,10 @@
 {
     public enum FonteDoacao
     {
-        Próprio = 1,
-        Particular = 2,
-        Prefeitura = 3,
-        Estado = 4,
-        Outro = 5
+        Particular= 1,
+        AOAC = 2,
+        Municipal = 3,
+        Estadual = 4,
+        Federal = 5
     }
 }

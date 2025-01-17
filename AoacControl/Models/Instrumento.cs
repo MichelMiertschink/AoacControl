@@ -1,6 +1,7 @@
 ﻿using AoacControl.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Net.Mail;
 
 namespace AoacControl.Models
@@ -25,7 +26,7 @@ namespace AoacControl.Models
         public FonteDoacao FonteDoacao { get; set; }
 
         [Display (Name = "Valor")]
-        [DisplayFormat(DataFormatString = "{0:C}")]
+        [DisplayFormat(DataFormatString = "{0:0.00}")]
         [Required(ErrorMessage = "Valor é obrigatório")]
         public decimal ValorInstrumento { get; set; }
 
