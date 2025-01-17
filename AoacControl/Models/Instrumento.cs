@@ -1,8 +1,11 @@
 ﻿using AoacControl.Models.Enums;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
 
 namespace AoacControl.Models
 {
+    [Index(nameof(Patrimonio), IsUnique = true)]
     public class Instrumento : ModelBase
     {
         [Display (Name = "Patrimonio")]
@@ -14,16 +17,19 @@ namespace AoacControl.Models
         public string Descricao { get; set; }
 
         [Display (Name = "Tipo")]
+        [Required(ErrorMessage = "Tipo é obrigatório")]
         public TipoInstrumento TipoInstrumento { get; set; }
-
-        [Display (Name = "Observações")]
-        public string Observacoes { get; set; }
-
+                
         [Display (Name = "Doador")]
+        [Required(ErrorMessage = "Fonte de doação é obrigatório")]
         public FonteDoacao FonteDoacao { get; set; }
 
         [Display (Name = "Valor")]
-        public decimal ValorInstrumento { get; set; } = 0.00M;
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        [Required(ErrorMessage = "Valor é obrigatório")]
+        public decimal ValorInstrumento { get; set; }
 
+        [Display(Name = "Observações")]
+        public string? Observacoes { get; set; }
     }
 }

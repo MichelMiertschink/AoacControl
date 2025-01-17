@@ -113,7 +113,6 @@ namespace AoacControl.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Observacoes")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("Patrimonio")
@@ -130,7 +129,10 @@ namespace AoacControl.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Instrumento");
+                    b.HasIndex("Patrimonio")
+                        .IsUnique();
+
+                    b.ToTable("Instrumentos");
                 });
 
             modelBuilder.Entity("AoacControl.Models.Marca", b =>
