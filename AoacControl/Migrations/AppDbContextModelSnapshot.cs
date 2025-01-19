@@ -112,6 +112,9 @@ namespace AoacControl.Migrations
                     b.Property<int>("FonteDoacao")
                         .HasColumnType("int");
 
+                    b.Property<int>("MarcaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Observacoes")
                         .HasColumnType("longtext");
 
@@ -128,6 +131,8 @@ namespace AoacControl.Migrations
                         .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MarcaId");
 
                     b.HasIndex("Patrimonio")
                         .IsUnique();
@@ -237,6 +242,17 @@ namespace AoacControl.Migrations
                         .IsRequired();
 
                     b.Navigation("Paroquia");
+                });
+
+            modelBuilder.Entity("AoacControl.Models.Instrumento", b =>
+                {
+                    b.HasOne("AoacControl.Models.Marca", "Marca")
+                        .WithMany()
+                        .HasForeignKey("MarcaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Marca");
                 });
 
             modelBuilder.Entity("AoacControl.Models.Paroquia", b =>

@@ -14,11 +14,13 @@ namespace AoacControl.Controllers
     {
         private readonly InstrumentoService _instrumentoService;
         private readonly AssociadoService _associadoService;
+        private readonly MarcaService _marcaService;
 
-        public InstrumentosController(InstrumentoService instrumentoService, AssociadoService associadoService)
+        public InstrumentosController(InstrumentoService instrumentoService, AssociadoService associadoService, MarcaService marcaService)
         {
             _instrumentoService = instrumentoService;
             _associadoService = associadoService;
+            _marcaService = marcaService;
         }
 
         // GET: Instrumento
@@ -31,23 +33,25 @@ namespace AoacControl.Controllers
         // GET: Instrumento/Create
         public async Task<IActionResult> Create()
         {
-            return View();
+            var marca = await _marcaService.FindAllAsync();
+            var viewModel = new InstrumentoFormViewModel { Marcas = marca };
+            return View(viewModel);
         }
 
         // POST: Instrumento/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Instrumento instrumento)
-        {            
-            try
+        {
+            if (ModelState.IsValid)
             {
-                await _instrumentoService.InsertAsync(instrumento);
-                return RedirectToAction(nameof(Index));
-            } catch (DbUpdateException ex)
-            {
-                return RedirectToAction(nameof(Error), new { message = "Número do patrimonio deve ser único - " + ex.Message });
+                var marca = await _marcaService.FindAllAsync();
+                var viewModel = new InstrumentoFormViewModel { Marcas = marca };
+                return View(viewModel);
+
             }
-            
+            await _instrumentoService.InsertAsync(instrumento);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Instrumento/Details
@@ -81,8 +85,8 @@ namespace AoacControl.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = "ID não encontrado" });
             }
-            //List<Associado> associado = await _associadoService.FindAllAsync();
-            InstrumentoFormViewModel viewModel = new InstrumentoFormViewModel { Instrumento = instrumento /*, Associados = associado */};
+            List<Marca> marca = await _marcaService.FindAllAsync();
+            InstrumentoFormViewModel viewModel = new InstrumentoFormViewModel { Instrumento = instrumento, Marcas = marca};
             return View(viewModel);
         }
 
@@ -93,8 +97,8 @@ namespace AoacControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var associado = await _associadoService.FindAllAsync();
-                var viewModel = new InstrumentoFormViewModel { Instrumento = instrumento /*, Associados = associado*/};
+                var marca = await _marcaService.FindAllAsync();
+                var viewModel = new InstrumentoFormViewModel { Instrumento = instrumento, Marcas = marca};
                 return View(viewModel);
             }
 

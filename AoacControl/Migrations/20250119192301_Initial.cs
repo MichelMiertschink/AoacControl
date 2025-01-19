@@ -16,29 +16,6 @@ namespace AoacControl.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Instrumentos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Patrimonio = table.Column<int>(type: "int", nullable: false),
-                    Descricao = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    TipoInstrumento = table.Column<int>(type: "int", nullable: false),
-                    FonteDoacao = table.Column<int>(type: "int", nullable: false),
-                    ValorInstrumento = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Observacoes = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Instrumentos", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Marcas",
                 columns: table => new
                 {
@@ -69,6 +46,36 @@ namespace AoacControl.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UnioesParoquiais", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Instrumentos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Patrimonio = table.Column<int>(type: "int", nullable: false),
+                    Descricao = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TipoInstrumento = table.Column<int>(type: "int", nullable: false),
+                    FonteDoacao = table.Column<int>(type: "int", nullable: false),
+                    ValorInstrumento = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    MarcaId = table.Column<int>(type: "int", nullable: false),
+                    Observacoes = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Instrumentos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Instrumentos_Marcas_MarcaId",
+                        column: x => x.MarcaId,
+                        principalTable: "Marcas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -172,6 +179,11 @@ namespace AoacControl.Migrations
                 column: "ParoquiaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Instrumentos_MarcaId",
+                table: "Instrumentos",
+                column: "MarcaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Instrumentos_Patrimonio",
                 table: "Instrumentos",
                 column: "Patrimonio",
@@ -190,9 +202,6 @@ namespace AoacControl.Migrations
                 name: "Associados");
 
             migrationBuilder.DropTable(
-                name: "Marcas");
-
-            migrationBuilder.DropTable(
                 name: "Comunidades");
 
             migrationBuilder.DropTable(
@@ -200,6 +209,9 @@ namespace AoacControl.Migrations
 
             migrationBuilder.DropTable(
                 name: "Paroquias");
+
+            migrationBuilder.DropTable(
+                name: "Marcas");
 
             migrationBuilder.DropTable(
                 name: "UnioesParoquiais");

@@ -17,12 +17,17 @@ namespace AoacControl.Models
         [DataType (DataType.EmailAddress)]
         [Required (ErrorMessage = "Informe um e-mail válido")]
         public string email { get; set; }
-        
+
+        [Display(Name = "Instrumento")]
         public Instrumento Instrumento { get; set; }
         public int InstrumentoID { get; set; }
 
+        [Display (Name = "Comunidade")]
         public Comunidade Comunidade { get; set; }
+        [Display(Name = "Comunidade")]
         public int ComunidadeID { get; set; }
+        
+        [Display(Name = "Voz")]
         public Voz Voz { get; set; }
     }
 }
