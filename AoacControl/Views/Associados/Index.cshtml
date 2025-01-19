@@ -1,7 +1,7 @@
-﻿@model IEnumerable<AoacControl.Models.Instrumento>
+﻿@model IEnumerable<AoacControl.Models.Associado>
 
 @{
-    ViewData["Title"] = "Instrumento";
+    ViewData["Title"] = "Associado";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -13,16 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Patrimonio)
+                @Html.DisplayNameFor(model => model.NomeCompleto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Marca)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ValorInstrumento)
+                @Html.DisplayNameFor(model => model.Comunidade.Nome)
             </th>
             <th></th>
         </tr>
@@ -31,16 +25,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Patrimonio)
+                @Html.DisplayFor(modelItem => item.NomeCompleto)
             </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Descricao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Marca.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ValorInstrumento)
+                    @Html.DisplayFor(modelItem => item.Comunidade.Nome)
                 </td>
             <td>
                     <a class="badge bg-secondary" asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |

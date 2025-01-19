@@ -30,7 +30,16 @@ namespace AoacControl.Models
         [Required(ErrorMessage = "Valor é obrigatório")]
         public decimal ValorInstrumento { get; set; }
 
+        [Display (Name = "Marca")]
+        public Marca Marca { get; set; }
+        [Display(Name = "Marca")]
+        public int MarcaId { get; set; }
+
         [Display(Name = "Observações")]
         public string? Observacoes { get; set; }
+                
+        [Display(Name = "Associado")]
+        public int? AssociadoId { get; set; }
+        public Associado? Associado { get; set; }
     }
 }

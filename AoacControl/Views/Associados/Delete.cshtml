@@ -1,4 +1,4 @@
-﻿@model AoacControl.Models.Instrumento
+﻿@model AoacControl.Models.Comunidade
 
 @{
     ViewData["Title"] = "Excluir Comunidade";
@@ -10,22 +10,10 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Patrimonio)
+            @Html.DisplayNameFor(model => model.Nome)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Patrimonio)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Marca.Nome)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Marca.Nome)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Descricao)
+            @Html.DisplayFor(model => model.Nome)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreatedAt)

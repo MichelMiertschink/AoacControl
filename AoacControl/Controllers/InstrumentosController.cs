@@ -4,6 +4,7 @@ using AoacControl.Models.ViewModels;
 using AoacControl.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MySqlConnector;
 using NuGet.Packaging.Signing;
 using System.Data;
 using System.Diagnostics;
@@ -14,11 +15,13 @@ namespace AoacControl.Controllers
     {
         private readonly InstrumentoService _instrumentoService;
         private readonly AssociadoService _associadoService;
+        private readonly MarcaService _marcaService;
 
-        public InstrumentosController(InstrumentoService instrumentoService, AssociadoService associadoService)
+        public InstrumentosController(InstrumentoService instrumentoService, AssociadoService associadoService, MarcaService marcaService)
         {
             _instrumentoService = instrumentoService;
             _associadoService = associadoService;
+            _marcaService = marcaService;
         }
 
         // GET: Instrumento
@@ -31,23 +34,53 @@ namespace AoacControl.Controllers
         // GET: Instrumento/Create
         public async Task<IActionResult> Create()
         {
-            return View();
+            var marca = await _marcaService.FindAllAsync();
+            var viewModel = new InstrumentoFormViewModel { Marcas = marca };
+            return View(viewModel);
         }
 
         // POST: Instrumento/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Instrumento instrumento)
-        {            
+        {
+<<<<<<< HEAD
+            var valida = await _instrumentoService.FindByIdAsync(instrumento.Id);
+            if (valida is not null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Número de patrimônio duplicado"});
+            }
+            if (ModelState.IsValid)
+            {
+                var marca = await _marcaService.FindAllAsync();
+                var viewModel = new InstrumentoFormViewModel { Marcas = marca };
+                return View(viewModel);
+
+            }
             try
             {
                 await _instrumentoService.InsertAsync(instrumento);
                 return RedirectToAction(nameof(Index));
-            } catch (DbUpdateException ex)
-            {
-                return RedirectToAction(nameof(Error), new { message = "Número do patrimonio deve ser único - " + ex.Message });
             }
-            
+            catch (MySqlException ex) 
+            {
+                return RedirectToAction(nameof(Error), new { message = "Número de patrimônio duplicado" + ex.Message });
+            }
+            catch (DbUpdateException ex)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Número de patrimônio duplicado" + ex.Message });
+            }
+=======
+            if (ModelState.IsValid)
+            {
+                var marca = await _marcaService.FindAllAsync();
+                var viewModel = new InstrumentoFormViewModel { Marcas = marca };
+                return View(viewModel);
+
+            }
+            await _instrumentoService.InsertAsync(instrumento);
+            return RedirectToAction(nameof(Index));
+>>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200
         }
 
         // GET: Instrumento/Details
@@ -81,8 +114,8 @@ namespace AoacControl.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = "ID não encontrado" });
             }
-            //List<Associado> associado = await _associadoService.FindAllAsync();
-            InstrumentoFormViewModel viewModel = new InstrumentoFormViewModel { Instrumento = instrumento /*, Associados = associado */};
+            List<Marca> marca = await _marcaService.FindAllAsync();
+            InstrumentoFormViewModel viewModel = new InstrumentoFormViewModel { Instrumento = instrumento, Marcas = marca};
             return View(viewModel);
         }
 
@@ -93,8 +126,8 @@ namespace AoacControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var associado = await _associadoService.FindAllAsync();
-                var viewModel = new InstrumentoFormViewModel { Instrumento = instrumento /*, Associados = associado*/};
+                var marca = await _marcaService.FindAllAsync();
+                var viewModel = new InstrumentoFormViewModel { Instrumento = instrumento, Marcas = marca};
                 return View(viewModel);
             }
 
@@ -144,10 +177,7 @@ namespace AoacControl.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction(nameof(Error), new
-                {
-                    message = "Não é possível excluir - " + ex.Message
-                });
+                return RedirectToAction(nameof(Error), new {message = "Não é possível excluir - " + ex.Message});
             }
         }
 

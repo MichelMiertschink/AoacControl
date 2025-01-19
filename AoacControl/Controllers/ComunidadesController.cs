@@ -53,7 +53,7 @@ namespace AoacControl.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "ID não fornecido" });
             }
 
             var comunidade = await _comunidadeService.FindByIdAsync(id.Value);

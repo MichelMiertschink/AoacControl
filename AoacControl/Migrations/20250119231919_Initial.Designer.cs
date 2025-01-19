@@ -4,6 +4,7 @@ using AoacControl.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AoacControl.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+<<<<<<<< HEAD:AoacControl/Migrations/20250119231919_Initial.Designer.cs
+    [Migration("20250119231919_Initial")]
+========
+    [Migration("20250119192301_Initial")]
+>>>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200:AoacControl/Migrations/20250119192301_Initial.Designer.cs
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,12 +137,12 @@ namespace AoacControl.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
+<<<<<<<< HEAD:AoacControl/Migrations/20250119231919_Initial.Designer.cs
                     b.HasIndex("AssociadoId")
                         .IsUnique();
 
-=======
->>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200
+========
+>>>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200:AoacControl/Migrations/20250119192301_Initial.Designer.cs
                     b.HasIndex("MarcaId");
 
                     b.HasIndex("Patrimonio")
@@ -242,24 +249,24 @@ namespace AoacControl.Migrations
 
             modelBuilder.Entity("AoacControl.Models.Instrumento", b =>
                 {
-<<<<<<< HEAD
+<<<<<<<< HEAD:AoacControl/Migrations/20250119231919_Initial.Designer.cs
                     b.HasOne("AoacControl.Models.Associado", "Associado")
                         .WithOne("InstrumentoID")
                         .HasForeignKey("AoacControl.Models.Instrumento", "AssociadoId");
 
-=======
->>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200
+========
+>>>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200:AoacControl/Migrations/20250119192301_Initial.Designer.cs
                     b.HasOne("AoacControl.Models.Marca", "Marca")
                         .WithMany()
                         .HasForeignKey("MarcaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-<<<<<<< HEAD
+<<<<<<<< HEAD:AoacControl/Migrations/20250119231919_Initial.Designer.cs
                     b.Navigation("Associado");
 
-=======
->>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200
+========
+>>>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200:AoacControl/Migrations/20250119192301_Initial.Designer.cs
                     b.Navigation("Marca");
                 });
 

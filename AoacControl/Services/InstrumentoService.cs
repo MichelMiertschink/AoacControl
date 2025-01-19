@@ -16,7 +16,7 @@ namespace AoacControl.Services
         // Find all
         public async Task<List<Instrumento>> FindAllAsync()
         {
-            return await _context.Instrumentos.ToListAsync();
+            return await _context.Instrumentos.Include(obj => obj.Marca).ToListAsync();
         }
 
         // Insert Async
@@ -29,7 +29,7 @@ namespace AoacControl.Services
         // Find By Id
         public async Task<Instrumento> FindByIdAsync(int id)
         {
-            return await _context.Instrumentos.FirstOrDefaultAsync(obj => obj.Id == id);
+            return await _context.Instrumentos.Include(obj => obj.Marca).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
         // Remove

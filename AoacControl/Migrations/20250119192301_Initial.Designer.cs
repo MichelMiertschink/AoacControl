@@ -12,7 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AoacControl.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250119174701_Initial")]
+<<<<<<<< HEAD:AoacControl/Migrations/20250119231919_Initial.Designer.cs
+    [Migration("20250119231919_Initial")]
+========
+    [Migration("20250119192301_Initial")]
+>>>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200:AoacControl/Migrations/20250119192301_Initial.Designer.cs
     partial class Initial
     {
         /// <inheritdoc />
@@ -43,9 +47,6 @@ namespace AoacControl.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("InstrumentoID")
-                        .HasColumnType("int");
-
                     b.Property<string>("NomeCompleto")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -63,8 +64,6 @@ namespace AoacControl.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ComunidadeID");
-
-                    b.HasIndex("InstrumentoID");
 
                     b.ToTable("Associados");
                 });
@@ -105,6 +104,9 @@ namespace AoacControl.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AssociadoId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -113,6 +115,9 @@ namespace AoacControl.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<int>("FonteDoacao")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MarcaId")
                         .HasColumnType("int");
 
                     b.Property<string>("Observacoes")
@@ -131,6 +136,14 @@ namespace AoacControl.Migrations
                         .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
+
+<<<<<<<< HEAD:AoacControl/Migrations/20250119231919_Initial.Designer.cs
+                    b.HasIndex("AssociadoId")
+                        .IsUnique();
+
+========
+>>>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200:AoacControl/Migrations/20250119192301_Initial.Designer.cs
+                    b.HasIndex("MarcaId");
 
                     b.HasIndex("Patrimonio")
                         .IsUnique();
@@ -220,15 +233,7 @@ namespace AoacControl.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AoacControl.Models.Instrumento", "Instrumento")
-                        .WithMany()
-                        .HasForeignKey("InstrumentoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Comunidade");
-
-                    b.Navigation("Instrumento");
                 });
 
             modelBuilder.Entity("AoacControl.Models.Comunidade", b =>
@@ -242,6 +247,29 @@ namespace AoacControl.Migrations
                     b.Navigation("Paroquia");
                 });
 
+            modelBuilder.Entity("AoacControl.Models.Instrumento", b =>
+                {
+<<<<<<<< HEAD:AoacControl/Migrations/20250119231919_Initial.Designer.cs
+                    b.HasOne("AoacControl.Models.Associado", "Associado")
+                        .WithOne("InstrumentoID")
+                        .HasForeignKey("AoacControl.Models.Instrumento", "AssociadoId");
+
+========
+>>>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200:AoacControl/Migrations/20250119192301_Initial.Designer.cs
+                    b.HasOne("AoacControl.Models.Marca", "Marca")
+                        .WithMany()
+                        .HasForeignKey("MarcaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+<<<<<<<< HEAD:AoacControl/Migrations/20250119231919_Initial.Designer.cs
+                    b.Navigation("Associado");
+
+========
+>>>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200:AoacControl/Migrations/20250119192301_Initial.Designer.cs
+                    b.Navigation("Marca");
+                });
+
             modelBuilder.Entity("AoacControl.Models.Paroquia", b =>
                 {
                     b.HasOne("AoacControl.Models.UniaoParoquial", "UniaoParoquial")
@@ -251,6 +279,11 @@ namespace AoacControl.Migrations
                         .IsRequired();
 
                     b.Navigation("UniaoParoquial");
+                });
+
+            modelBuilder.Entity("AoacControl.Models.Associado", b =>
+                {
+                    b.Navigation("InstrumentoID");
                 });
 
             modelBuilder.Entity("AoacControl.Models.Paroquia", b =>
