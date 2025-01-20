@@ -58,14 +58,14 @@ namespace AoacControl.Controllers
         {
             if (id != null) 
             {
-                return RedirectToAction(nameof(Error), new { message = "ID não fornecido" });
+                return RedirectToAction(nameof(Error), new { message = "ID do associado não fornecido" });
             }
 
             var associado = await _associadoService.FindByIdAsync(id.Value);
 
             if (associado == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "ID não encontrado" });
+                return RedirectToAction(nameof(Error), new { message = "ID do associado não encontrado" });
             }
             
             return View(associado);

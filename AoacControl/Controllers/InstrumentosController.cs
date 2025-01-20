@@ -44,25 +44,19 @@ namespace AoacControl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Instrumento instrumento)
         {
-<<<<<<< HEAD
-            var valida = await _instrumentoService.FindByIdAsync(instrumento.Id);
-            if (valida is not null)
-            {
-                return RedirectToAction(nameof(Error), new { message = "Número de patrimônio duplicado"});
-            }
             if (ModelState.IsValid)
             {
                 var marca = await _marcaService.FindAllAsync();
                 var viewModel = new InstrumentoFormViewModel { Marcas = marca };
                 return View(viewModel);
-
             }
+
             try
             {
                 await _instrumentoService.InsertAsync(instrumento);
                 return RedirectToAction(nameof(Index));
             }
-            catch (MySqlException ex) 
+            catch (MySqlException ex)
             {
                 return RedirectToAction(nameof(Error), new { message = "Número de patrimônio duplicado" + ex.Message });
             }
@@ -70,19 +64,8 @@ namespace AoacControl.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = "Número de patrimônio duplicado" + ex.Message });
             }
-=======
-            if (ModelState.IsValid)
-            {
-                var marca = await _marcaService.FindAllAsync();
-                var viewModel = new InstrumentoFormViewModel { Marcas = marca };
-                return View(viewModel);
-
-            }
-            await _instrumentoService.InsertAsync(instrumento);
-            return RedirectToAction(nameof(Index));
->>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200
         }
-
+        
         // GET: Instrumento/Details
         public async Task<IActionResult> Details(int? id)
         {
@@ -106,7 +89,7 @@ namespace AoacControl.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "ID não fornecido" });
+                return RedirectToAction(nameof(Error), new { message = "ID instrumento não fornecido"});
             }
 
             var instrumento = await _instrumentoService.FindByIdAsync(id.Value);
@@ -115,7 +98,7 @@ namespace AoacControl.Controllers
                 return RedirectToAction(nameof(Error), new { message = "ID não encontrado" });
             }
             List<Marca> marca = await _marcaService.FindAllAsync();
-            InstrumentoFormViewModel viewModel = new InstrumentoFormViewModel { Instrumento = instrumento, Marcas = marca};
+            InstrumentoFormViewModel viewModel = new InstrumentoFormViewModel { Instrumento = instrumento, Marcas = marca };
             return View(viewModel);
         }
 
@@ -124,10 +107,10 @@ namespace AoacControl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Instrumento instrumento)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 var marca = await _marcaService.FindAllAsync();
-                var viewModel = new InstrumentoFormViewModel { Instrumento = instrumento, Marcas = marca};
+                var viewModel = new InstrumentoFormViewModel { Instrumento = instrumento, Marcas = marca };
                 return View(viewModel);
             }
 
@@ -177,7 +160,7 @@ namespace AoacControl.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction(nameof(Error), new {message = "Não é possível excluir - " + ex.Message});
+                return RedirectToAction(nameof(Error), new { message = "Não é possível excluir - " + ex.Message });
             }
         }
 

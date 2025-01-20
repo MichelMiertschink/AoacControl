@@ -50,7 +50,7 @@ namespace AoacControl.Migrations
                     b.Property<int>("Voz")
                         .HasColumnType("int");
 
-                    b.Property<string>("email")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -130,12 +130,9 @@ namespace AoacControl.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
                     b.HasIndex("AssociadoId")
                         .IsUnique();
 
-=======
->>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200
                     b.HasIndex("MarcaId");
 
                     b.HasIndex("Patrimonio")
@@ -242,24 +239,18 @@ namespace AoacControl.Migrations
 
             modelBuilder.Entity("AoacControl.Models.Instrumento", b =>
                 {
-<<<<<<< HEAD
                     b.HasOne("AoacControl.Models.Associado", "Associado")
                         .WithOne("InstrumentoID")
                         .HasForeignKey("AoacControl.Models.Instrumento", "AssociadoId");
 
-=======
->>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200
                     b.HasOne("AoacControl.Models.Marca", "Marca")
                         .WithMany()
                         .HasForeignKey("MarcaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-<<<<<<< HEAD
                     b.Navigation("Associado");
 
-=======
->>>>>>> 93c318e2768e4f0a82d1432633fc656dba373200
                     b.Navigation("Marca");
                 });
 
